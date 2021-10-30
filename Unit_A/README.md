@@ -1,4 +1,6 @@
 # Unit A
+[Back to Main](../README.md)  
+
 `IMPORTANT NOTE: THIS README SERVES AS A CHEAT SHEET FOR ME, IF YOU WANT TO UNDERSTAND THE TECHNIQUES I HIGHLY RECOMMEND TO WATCH THE LECTURES!`  
 
 Our robot is a wheeled robot with a 2D LIDAR scanner on top of it, which doesn't cover 360 degrees, there is a dead region.
@@ -77,5 +79,5 @@ while (on cylinder){
 ```
 
 ## Final Result
-After going through all these steps we end up with a better trajectory (BUT could be improved) of our robot as follows:
+After going through all these steps we end up with this trajectory (that could be improved) of our robot as follows:
 ![final trajectory](assets/final_trajectory.png)
