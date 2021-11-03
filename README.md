@@ -17,6 +17,7 @@ This unit introduces the uncertainty of the robot and models it using probabilit
 The unit starts by exploring the multivariate Gaussian/Normal distribution, and then it generalizes the kalman filter from unit c to the multi-dimensional case. Then it tries to apply this filter on our robot but since the robot motion model is non-linear, another version of kalman filter is introduced which is the Extended kalman filter. [READ MORE](./Unit_D/README.md)
 
 ### Unit E
+First have a look at the particle filter which represents the distribution by hypothetical states (particles), and this filter also consists of two steps prediction and correction, where in the prediction we compute set of particles that diverge, while the correction step can be summed up in two steps: compute importance factors and perform importance sampling. This filter is able to recover the robot trajectory even if it doesn't know the initial state. [READ MORE](./Unit_E/README.md)
 
 ### Unit F
 
