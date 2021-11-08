@@ -22,7 +22,7 @@ Since everything is tight to our coordinate system with the robot initial positi
 
 ### SLAM Problems
 
-1. Continuous Components: where our state vector includes not only the robot position and heading but also the landmarks position coordiantes x & y, this increases the computation of SLAM (online slam) as the number of landmarks increases.  
+1. Continuous Components: where our state vector includes not only the robot position and heading but also the landmarks position coordiantes x & y, this increases the computation of SLAM (on line slam) as the number of landmarks increases.  
 2. Discrete Components: where the main problem is the correspondence of objects to previously detected objects. As our robot uses the assignments of the measurements which are discrete in nature to correct its state, if there is an error in those assignments this might lead to large error in the robot state which can not be corrected anymore because we don't keep track of those assignments.  
 
 ![SLAM Challenges](assets/SLAM_Problems.png)  
@@ -63,3 +63,19 @@ and the jaccobian will be:
 
 ![Final Result](assets/final_result.png)  
 where the green points are the detected landmarks and the purple points are the estimated landmarks position with purple ellipses around each representing the uncertainty of the estimated position.  
+
+## Important Notes
+
+1. Effect of number of landmars:
+If we have a few number of landmars then the landmark assignment will be good as there will be less confusion, but on the other hand, the localization won't be that good because there will be parts of the map where we have no landmarks and hence the position error will grow because only the predition is applied.  
+If we have many landmarks then it's easy to confuse them and hence the landmark assignment won't be as good as in the previous case, and in order to benefit from the large number of landmarks we need to have distinct landmarks [using landmark signatures] in order to reduce the confusion in the assignment and hence the error in our estimate.
+
+2. Landmark assignment:
+![Landmark Assignment](assets/landmark_assignment.png)  
+The used techinque for landmark assignment was to set a maximum circular range to which we assign detected landmarks to our references (like in the top right corner of the image), but consider the case (the bottom right corner of the image) where we detect two measurements, the first one is far from the landmark but still within the circular range but the landmark has a small variance so it might not be a good decision to assign it to the landmark as this might increase the uncertainty of the landmark position, while the second one should be assigned to the landmark close to it as it has a large variance and this assignment will probably decrease the uncertainty.
+How to decide whether to assign the measurement to a landmark or not?  
+We use the maximum likelihood technique (illustrated in the left half of the image) that takes into consideration the uncertainty in the measurement (represented by Q) in addition to the uncertainty due to the uncertainty in the robot state.
+
+3. Provisional Landmark List:
+   ![Provisional Landmark](assets/provisional_landmarkList.png)  
+   The idea here is to store the landmarks in a provisional list till after some measurements indicate that the robot found this landmark consistently only then the landmark will be put in the final landmark list. The trick here is that those landmarks are still in the state vector but they are not used to update the robot state, the robot state affects them but not vice versa untill they are moved to the final landmark list.
